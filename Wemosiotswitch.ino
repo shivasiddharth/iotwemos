@@ -11,7 +11,7 @@ int RelayPin = D1;          //Relay Shield is controlled by pin D1
 WiFiServer server(80);
  
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200); //change according to your com port baud rate
   delay(10);
  
  
