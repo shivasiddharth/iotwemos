@@ -4,8 +4,8 @@
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
 
-const char* ssid = "Siddhy";             //Set your wifi network name(ssid)
-const char* password = "Siddhy1990";                //Set your router password
+const char* ssid = "******";             //Set your wifi network name(ssid)
+const char* password = "*******";                //Set your router password
  
 int RelayPin = D1;          //Relay Shield is controlled by pin 1 (D1)
 WiFiServer server(80);
