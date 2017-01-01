@@ -7,7 +7,7 @@
 const char* ssid = "******";             //Set your wifi network name(ssid)
 const char* password = "*******";                //Set your router password
  
-int RelayPin = D1;          //Relay Shield is controlled by pin 1 (D1)
+int RelayPin = D1;          //Relay Shield is controlled by pin D1
 WiFiServer server(80);
  
 void setup() {
