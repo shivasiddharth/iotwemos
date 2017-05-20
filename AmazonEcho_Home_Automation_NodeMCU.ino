@@ -9,8 +9,8 @@
 #include <ESP8266WiFi.h>
 #include "fauxmoESP.h"
 
-#define WIFI_SSID "Siddhy"//change your Wifi name
-#define WIFI_PASS "Siddhy1990"//Change your Wifi Password
+#define WIFI_SSID "**********"//change your Wifi name
+#define WIFI_PASS "*********"//Change your Wifi Password
 #define SERIAL_BAUDRATE                 115200
 
 fauxmoESP fauxmo;
