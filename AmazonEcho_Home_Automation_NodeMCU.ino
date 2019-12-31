@@ -1,8 +1,8 @@
  /**********************************************************************************
   * Code for controlling multiple devices connected to one NodeMCU using Amazon Echo
-  * 
+  *
   * Written by Sid for Sid's E Classroom
-  * 
+  *
   * https://www.youtube.com/c/SidsEClassroom
   *********************************************************************************/
 #include <Arduino.h>
@@ -19,6 +19,7 @@ fauxmoESP fauxmo;
 #define Kitchen D1
 #define Bedroom D2
 #define Living D3
+
 // -----------------------------------------------------------------------------
 // Wifi Setup
 // -----------------------------------------------------------------------------
@@ -42,43 +43,6 @@ void wifiSetup() {
     // Connected!
     Serial.printf("[WIFI] STATION Mode, SSID: %s, IP address: %s\n", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());
 }
-// -----------------------------------------------------------------------------
-// Device Callback
-// -----------------------------------------------------------------------------
-void callback(uint8_t device_id, const char * device_name, bool state) {
-  Serial.print("Device "); Serial.print(device_name); 
-  Serial.print(" state: ");
-  if (state) {
-    Serial.println("ON");
-  } else {
-    Serial.println("OFF");
-  }
-  //Switching action on detection of device name
-  if ( (strcmp(device_name, "Kitchen Lights") == 0) ) {
-    // adjust the relay immediately!
-    if (state) {
-      digitalWrite(Kitchen, HIGH);
-    } else {
-      digitalWrite(Kitchen, LOW);
-    }
-  }
-  if ( (strcmp(device_name, "Bedroom Lights") == 0) ) {
-    // adjust the relay immediately!
-    if (state) {
-      digitalWrite(Bedroom, HIGH);
-    } else {
-      digitalWrite(Bedroom, LOW);
-    }
-  }
-  if ( (strcmp(device_name, "Living Room Lights") == 0) ) {
-    // adjust the relay immediately!
-    if (state) {
-      digitalWrite(Living, HIGH);
-    } else {
-      digitalWrite(Living, LOW);
-    }
-  }
-}
 
 void setup() {
     //Initialize pins to Low on device start
@@ -88,7 +52,7 @@ void setup() {
     digitalWrite(Bedroom, LOW);
     pinMode(Living, OUTPUT);
     digitalWrite(Living, LOW);
-    
+
     // Init serial port and clean garbage
     Serial.begin(SERIAL_BAUDRATE);
     Serial.println("FauxMo demo sketch");
@@ -97,13 +61,54 @@ void setup() {
     // Wifi
     wifiSetup();
 
+    // By default, fauxmoESP creates it's own webserver on the defined port
+    // The TCP port must be 80 for gen3 devices (default is 1901)
+    // This has to be done before the call to enable()
+    fauxmo.createServer(true); // not needed, this is the default value
+    fauxmo.setPort(80); // This is required for gen3 devices
+
+    // You have to call enable(true) once you have a WiFi connection
+    // You can enable or disable the library at any moment
+    // Disabling it will prevent the devices from being discovered and switched
+    fauxmo.enable(true);
+
     // Device Names for Simulated Wemo switches
     fauxmo.addDevice("Living Room Lights");
     fauxmo.addDevice("Kitchen Lights");
     fauxmo.addDevice("Bedroom Lights");
-    fauxmo.onMessage(callback);
+
+
+    // -----------------------------------------------------------------------------
+    // Device Callback
+    // -----------------------------------------------------------------------------
+
+    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {
+
+        // Callback when a command from Alexa is received.
+        // You can use device_id or device_name to choose the element to perform an action onto (relay, LED,...)
+        // State is a boolean (ON/OFF) and value a number from 0 to 255 (if you say "set kitchen light to 50%" you will receive a 128 here).
+        // Just remember not to delay too much here, this is a callback, exit as soon as possible.
+        // If you have to do something more involved here set a flag and process it in your main loop.
+
+        Serial.printf("[MAIN] Device #%d (%s) state: %s value: %d\n", device_id, device_name, state ? "ON" : "OFF", value);
+
+        // Checking for device_id is simpler if you are certain about the order they are loaded and it does not change.
+        // Otherwise comparing the device_name is safer.
+
+        if (strcmp(device_name, "Living Room Lights")==0) {
+            digitalWrite(Living, state ? HIGH : LOW);
+        } else if (strcmp(device_name, "Kitchen Lights")==0) {
+            digitalWrite(Kitchen, state ? HIGH : LOW);
+        } else if (strcmp(device_name, "Bedroom Lights")==0) {
+            digitalWrite(Bedroom, state ? HIGH : LOW);
+        }
+    });
 }
 
 void loop() {
   fauxmo.handle();
+  if (millis() - last > 5000) {
+        last = millis();
+        Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
+  }
 }
