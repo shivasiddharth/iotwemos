@@ -107,6 +107,7 @@ void setup() {
 
 void loop() {
   fauxmo.handle();
+  static unsigned long last = millis();
   if (millis() - last > 5000) {
         last = millis();
         Serial.printf("[MAIN] Free heap: %d bytes\n", ESP.getFreeHeap());
