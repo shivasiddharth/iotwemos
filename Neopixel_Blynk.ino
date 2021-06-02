@@ -1,11 +1,11 @@
 
-#***************************************************************************************
-#               Code for Controlling Neopixel LEDs using Blynk App
-#                    Written by Sid for Sid's E Classroom
-#                    https://www.youtube.com/c/SidsEClassroom
-#             All text above must be included in any redistribution.
-#  If you find this useful and want to make a donation -> https://paypal.me/sidsclass
-# ***************************************************************************************
+//***************************************************************************************
+//               Code for Controlling Neopixel LEDs using Blynk App
+//                    Written by Sid for Sid's E Classroom
+//                    https://www.youtube.com/c/SidsEClassroom
+//             All text above must be included in any redistribution.
+//  If you find this useful and want to make a donation -> https://paypal.me/sidsclass
+// ***************************************************************************************
 #define BLYNK_PRINT Serial
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
