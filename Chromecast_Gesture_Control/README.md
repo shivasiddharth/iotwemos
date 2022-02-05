@@ -83,14 +83,14 @@
 
 ## Purpose Of The Indicator LED    
 
-[![LED]([img]https://i.imgur.com/t0xGlhg.jpg[/img])](https://www.youtube.com/watch?v=996fY4w48jY "Remote Control Chromecast with Gestures Using ESP8266 NodeMCU LED Status Indication")      
+![image alt text]([img]https://i.imgur.com/t0xGlhg.jpg[/img])](https://www.youtube.com/watch?v=996fY4w48jY "Remote Control Chromecast with Gestures Using ESP8266 NodeMCU LED Status Indication")      
 
 <p>I have assigned specific behavioral patterns to the indicator LED.</p><ul><li>If the LED blinks every 1 second, it means that the WiFi connection has got disconnected.<li>If the LED blinks in long intervals, it means that it is unable to shake hands with the Chromecast.<li>If the LED pulses constantly, it means that its constantly communicating with the Chromecast.<li>If the LED momentarily blinks while pulsing, it means that it has picked up a gesture.</ul>    
 
 
 ## Demo: And The Controls    
 
-[![DEMO]([img]https://i.imgur.com/bBZJQ8A.jpg[/img])](https://www.youtube.com/watch?v=0buSCjYbQNg "Remote Control Chromecast with Gestures Using ESP8266 NodeMCU  Gestures Working Demo")    
+![image alt text]([img]https://i.imgur.com/bBZJQ8A.jpg[/img])](https://www.youtube.com/watch?v=0buSCjYbQNg "Remote Control Chromecast with Gestures Using ESP8266 NodeMCU  Gestures Working Demo")    
 
 <p>The gesture sensor can inherently detect 4 gestures:</p><ul><li>Right swipe.<li>Left swipe.<li>Top swipe and<li>Bottom swipe.</ul><p>Thanks to Sparkfun, we have two additional gestures:</p><ul><li>Far swipe and<li>Near swipe.</ul><p>For Far swipe, you need to start close to the sensor and take your hand away and for Near swipe, its the opposite, you need to start Far away and bring your hand close to the sensor.</p><p>I have integrated these 6 gestures with 6 different Chromecast controls.</p><ol><li>Right swipe will Seek or move the video forward by 10 seconds.<li>Left swipe will Seek or move the video backward by 10 seconds.<li>Top swipe will increase the volume by 1 unit.<li>Bottom swipe will reduce the volume by 1 unit<li>Far swipe will Pause/Unpause the video.<li>Near swipe will Mute/Unmute the video.</ol><p>I have shown the working of the gadget in the attached video. Hope you do create your own device and have fun.</p>    
 
